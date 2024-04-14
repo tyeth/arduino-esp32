@@ -20,7 +20,7 @@ bool NetworkManager::begin(){
     static bool initialized = false;
     if(!initialized){
         initialized = true;
-#if CONFIG_IDF_TARGET_ESP32
+#if CONFIG_IDF_TARGET_ESP32 || CONFIG_IDF_TARGET_ESP32S2 || CONFIG_IDF_TARGET_ESP32S3 || CONFIG_IDF_TARGET_ESP32C3 || CONFIG_IDF_TARGET_ESP32C6
         uint8_t mac[8];
         if(esp_efuse_mac_get_default(mac) == ESP_OK){
             esp_base_mac_addr_set(mac);
