@@ -15343,6 +15343,15 @@ adafruit_metro_esp32p4.menu.UploadMode.cdc=USB-OTG CDC (TinyUSB)
 adafruit_metro_esp32p4.menu.UploadMode.cdc.upload.use_1200bps_touch=true
 adafruit_metro_esp32p4.menu.UploadMode.cdc.upload.wait_for_upload_port=true
 
+adafruit_metro_esp32p4.menu.PartitionScheme.tinyuf2=TinyUF2 16MB, pre-v3 (4MB APP/7.68MB FATFS)
+adafruit_metro_esp32p4.menu.PartitionScheme.tinyuf2.build.custom_bootloader=bootloader-tinyuf2
+adafruit_metro_esp32p4.menu.PartitionScheme.tinyuf2.build.partitions=tinyuf2-partitions-16MB-ota4MB
+adafruit_metro_esp32p4.menu.PartitionScheme.tinyuf2.upload.maximum_size=4194304
+adafruit_metro_esp32p4.menu.PartitionScheme.tinyuf2.upload.extra_flags=0x810000 "{runtime.platform.path}/variants/{build.variant}/tinyuf2.bin"
+adafruit_metro_esp32p4.menu.PartitionScheme.tinyuf2.recipe.hooks.objcopy.postobjcopy.3.pattern_args=--chip {build.mcu} merge-bin -o "{build.path}/{build.project_name}.merged.bin" --pad-to-size {build.flash_size} --flash-mode keep --flash-freq keep --flash-size keep {build.bootloader_addr} "{build.path}/{build.project_name}.bootloader.bin" 0x8000 "{build.path}/{build.project_name}.partitions.bin" 0xe000 "{runtime.platform.path}/tools/partitions/boot_app0.bin" 0x10000 "{build.path}/{build.project_name}.bin" {upload.extra_flags}
+adafruit_metro_esp32p4.menu.PartitionScheme.tinyuf2.recipe.hooks.objcopy.postobjcopy.6.pattern=/usr/bin/env bash -c "cp '{build.variant.path}/tinyuf2.bin' '{build.path}/tinyuf2.bin' && echo '0x810000 tinyuf2.bin'>>'{build.path}/flash_args'"
+adafruit_metro_esp32p4.menu.PartitionScheme.tinyuf2.recipe.hooks.objcopy.postobjcopy.6.pattern.windows=cmd /c copy /y "{build.variant.path}\tinyuf2.bin" "{build.path}\tinyuf2.bin" && echo 0x810000 tinyuf2.bin >> "{build.path}\flash_args"
+
 adafruit_metro_esp32p4.menu.PartitionScheme.default_16MB=Default (6.25MB APP/3.43MB SPIFFS)
 adafruit_metro_esp32p4.menu.PartitionScheme.default_16MB.build.partitions=default_16MB
 adafruit_metro_esp32p4.menu.PartitionScheme.default_16MB.upload.maximum_size=6553600

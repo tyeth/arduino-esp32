@@ -1,0 +1,32 @@
+Metro ESP32-P4 TinyUF2 images
+
+These images use ESP-IDF v6.1 and target pre-v3 ESP32-P4 silicon (image revision
+range 0.1 through 1.99). For newer silicon, select the standard Default partition
+scheme until matching TinyUF2 images are available.
+
+TinyUF2 source: https://github.com/adafruit/tinyuf2
+Source state: 1624ab6940a620c9219748e0e67c0f6dabfabb90
+TinyUSB: 2a364ca272d8219f47aece3232aa2e9ab8738655
+The images were built before the source changes were committed, so the embedded
+TinyUF2 version string is a1bc8ae-dirty.
+
+Build from ports/espressif with ESP-IDF v6.1:
+  idf.py -B build-metro-p4 -DBOARD=adafruit_metro_esp32p4 build
+
+bootloader-tinyuf2.bin: 23872 bytes, flash address 0x2000
+SHA256: 5b317e882f4cebe35d43ff1730c64234209321b324189d40281542aa4691266d
+tinyuf2.bin: 254224 bytes, flash address 0x810000
+SHA256: 988a969fe588d7f58cfaacc4c313fb532a9e9946a6ed13386c797b9155df7626
+
+The TinyUF2 partition scheme installs both images during an ordinary Arduino
+upload and includes them in the merged flash image and generated flash_args.
+It provides two 4 MB application slots and 7872 KB of FAT storage.
+
+Double-reset entry requires CBATRAW = 2.2 uF on the GPIO18 battery divider.
+Tap RESET again during the dim purple window to open METROP4BOOT. With the
+original capacitor, tap RESET, then press BOOT during the purple window instead.
+Holding BOOT during RESET still enters the independent ROM downloader.
+
+TinyUF2 and TinyUSB are MIT licensed; ESP-IDF is Apache-2.0 licensed, with
+component exceptions described in its license. See TINYUF2_LICENSE.txt and the
+corresponding source repositories for notices and component licenses.
